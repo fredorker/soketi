@@ -384,7 +384,7 @@ export class WsHandler {
             this.server.adapter.addSocket(ws.app.id, ws);
 
             // If the connection freshly joined, send the webhook:
-            if (response.channelConnections === 1) {
+            if (response.channelConnections === 1 && channel !== 'data') {
                 this.server.webhookSender.sendChannelOccupied(ws.app, channel);
             }
 
@@ -503,7 +503,7 @@ export class WsHandler {
                     this.server.adapter.addSocket(ws.app.id, ws);
                 }
 
-                if (response.remainingConnections === 0) {
+                if (response.remainingConnections === 0 && channel !== 'data') {
                     this.server.webhookSender.sendChannelVacated(ws.app, channel);
                 }
             }

@@ -18,6 +18,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { WebhookSender } from './webhook-sender';
 import { WebSocket } from 'uWebSockets.js';
 import { WsHandler } from './ws-handler';
+import { DataConsumer } from './data/consumers/kafka';
 
 const Discover = require('node-discover');
 const queryString = require('query-string');
@@ -491,6 +492,7 @@ export class Server {
         return new Promise(resolve => {
             instance.init().then(() => {
                 this.adapter = instance;
+                new DataConsumer(this);
                 resolve();
             });
         });
